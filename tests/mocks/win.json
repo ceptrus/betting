@@ -1,0 +1,250 @@
+{
+    "1.1": {
+        "marketId": "1.1",
+        "totalMatched": 11220.402776,
+        "totalAvailable": 4549.83,
+        "runners": [
+            {
+                "selectionId": 1,
+                "exchange": {
+                    "availableToBack": [
+                        {
+                            "price": 1.45,
+                            "size": 70.54
+                        }
+                    ],
+                    "availableToLay": [
+                        {
+                            "price": 1.48,
+                            "size": 1435.2229365383216
+                        }
+                    ]
+                }
+            },
+            {
+                "selectionId": 2,
+                "exchange": {
+                    "availableToBack": [
+                        {
+                            "price": 5.2,
+                            "size": 47.51870431417515
+                        }
+                    ],
+                    "availableToLay": [
+                        {
+                            "price": 5.3,
+                            "size": 7.3059285714285735
+                        }
+                    ]
+                }
+            },
+            {
+                "selectionId": 3,
+                "exchange": {
+                    "availableToBack": [
+                        {
+                            "price": 3.2,
+                            "size": 28.215999999999998
+                        }
+                    ],
+                    "availableToLay": [
+                        {
+                            "price": 3.4,
+                            "size": 22.4348946538627
+                        }
+                    ]
+                }
+            }
+        ],
+        "selections": [],
+        "marketType": "MATCH_ODDS",
+        "marketTime": "2015-06-26T18:00:00.000Z",
+        "eventTypeId": 1
+    },
+    "1.2": {
+        "marketId": "1.2",
+        "totalMatched": 11220.402776,
+        "totalAvailable": 4549.83,
+        "runners": [
+            {
+                "selectionId": 1,
+                "exchange": {
+                    "availableToBack": [
+                        {
+                            "price": 1.45,
+                            "size": 70.54
+                        }
+                    ],
+                    "availableToLay": [
+                        {
+                            "price": 1.48,
+                            "size": 1435.2229365383216
+                        }
+                    ]
+                }
+            },
+            {
+                "selectionId": 2,
+                "exchange": {
+                    "availableToBack": [
+                        {
+                            "price": 11.5,
+                            "size": 47.51870431417515
+                        }
+                    ],
+                    "availableToLay": [
+                        {
+                            "price": 14,
+                            "size": 7.3059285714285735
+                        }
+                    ]
+                }
+            },
+            {
+                "selectionId": 3,
+                "exchange": {
+                    "availableToBack": [
+                        {
+                            "price": 7.2,
+                            "size": 28.215999999999998
+                        }
+                    ],
+                    "availableToLay": [
+                        {
+                            "price": 7.4,
+                            "size": 22.4348946538627
+                        }
+                    ]
+                }
+            }
+        ],
+        "selections": [],
+        "marketType": "MATCH_ODDS",
+        "marketTime": "2015-06-26T18:00:00.000Z",
+        "eventTypeId": 1
+    },
+    "1.3": {
+        "marketId": "1.3",
+        "totalMatched": 11220.402776,
+        "totalAvailable": 4549.83,
+        "runners": [
+            {
+                "selectionId": 1,
+                "exchange": {
+                    "availableToBack": [
+                        {
+                            "price": 1.45,
+                            "size": 70.54
+                        }
+                    ],
+                    "availableToLay": [
+                        {
+                            "price": 1.48,
+                            "size": 1435.2229365383216
+                        }
+                    ]
+                }
+            },
+            {
+                "selectionId": 2,
+                "exchange": {
+                    "availableToBack": [
+                        {
+                            "price": 11.5,
+                            "size": 47.51870431417515
+                        }
+                    ],
+                    "availableToLay": [
+                        {
+                            "price": 14,
+                            "size": 7.3059285714285735
+                        }
+                    ]
+                }
+            },
+            {
+                "selectionId": 3,
+                "exchange": {
+                    "availableToBack": [
+                        {
+                            "price": 4.2,
+                            "size": 28.215999999999998
+                        }
+                    ],
+                    "availableToLay": [
+                        {
+                            "price": 4.4,
+                            "size": 22.4348946538627
+                        }
+                    ]
+                }
+            }
+        ],
+        "selections": [],
+        "marketType": "MATCH_ODDS",
+        "marketTime": "2015-06-26T18:00:00.000Z",
+        "eventTypeId": 1
+    },
+    "1.1192463671": {
+        "marketId": "1.1192463671",
+        "totalMatched": 11220.402776,
+        "totalAvailable": 4549.83,
+        "runners": [
+            {
+                "selectionId": 5359221,
+                "exchange": {
+                    "availableToBack": [
+                        {
+                            "price": 1.45,
+                            "size": 70.54
+                        }
+                    ],
+                    "availableToLay": [
+                        {
+                            "price": 1.48,
+                            "size": 1435.2229365383216
+                        }
+                    ]
+                }
+            },
+            {
+                "selectionId": 7546709,
+                "exchange": {
+                    "availableToBack": [
+                        {
+                            "price": 11.5,
+                            "size": 47.51870431417515
+                        }
+                    ],
+                    "availableToLay": [
+                        {
+                            "price": 14,
+                            "size": 7.3059285714285735
+                        }
+                    ]
+                }
+            },
+            {
+                "selectionId": 58805,
+                "exchange": {
+                    "availableToBack": [
+                        {
+                            "price": 4.2,
+                            "size": 28.215999999999998
+                        }
+                    ],
+                    "availableToLay": [
+                        {
+                            "price": 4.4,
+                            "size": 22.4348946538627
+                        }
+                    ]
+                }
+            }
+        ],
+        "selections": [],
+        "marketType": "MATCH_ODDS",
+        "marketTime": "2015-06-26T18:00:00.000Z",
+        "eventTypeId": 1
+    }
+}

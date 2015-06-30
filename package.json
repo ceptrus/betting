@@ -10,8 +10,10 @@
   "license": "ISC",
   "dependencies": {
     "cron": "^1.0.5",
+    "lodash": "^3.9.3",
     "moment": "^2.10.2",
     "mongodb-bluebird": "0.0.8",
+    "request": "^2.56.0",
     "request-promise": "^0.4.2",
     "underscore": "^1.8.3",
     "when": "^3.7.2"

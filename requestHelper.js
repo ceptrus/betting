@@ -2,7 +2,7 @@
 
 var moment = require('moment');
 
-var cookie = 'l/5XluhfSUMRUhW230zhlPM4Fp/Cnj4IMVxk1TAu368=';
+var cookie = 'seTkKxHZNy5njZvlEJKN58RI4J+6JJzfSIODiAE/4ZM=';
 
 var facetData = JSON.stringify({
 	filter: {
@@ -13,7 +13,8 @@ var facetData = JSON.stringify({
 			regionCode: "UK"
 		},
 		marketTypeCodes: ["MATCH_ODDS"],
-		inPlayOnly: true,
+		marketIds: ["1.119246367"],
+		// inPlayOnly: true,
 		attachments: ["MARKET_LITE"],
 		maxResults: 15,
 		selectBy: "FIRST_TO_START"
@@ -43,8 +44,7 @@ var placeData = function(marketId, selectionId, size, price) {
 	    	jsonrpc: "2.0"
 	    }
 	]);
-}
-
+};
 
 module.exports = {
 	cashout: function(marketId, percentage) {
@@ -58,16 +58,13 @@ module.exports = {
 				'Content-Type': 'application/json;charset=UTF-8',
 				'Cookie': 'ssoid=' + cookie
 			}
-		}
+		};
 	},
-	place: function(runnerToBet, wallet) {
+	place: function(runnerToBet) {
 		var marketId = runnerToBet.marketId;
-		var selectionId = runnerToBet.winner.selectionId;
-		// var size = runnerToBet.winner.size;
-		var size = parseFloat(wallet / 2).toFixed(2);
-		if (size < 2) size = wallet;
-		if (size > 4) size = 4;
-		var price = runnerToBet.winner.price;
+		var selectionId = runnerToBet.selectionId;
+		var size = parseFloat(runnerToBet.size).toFixed(2);
+		var price = runnerToBet.price;
 
 		return {
 			url: 'https://www.betfair.com/api/etx-json-rpc?alt=json',
@@ -112,7 +109,7 @@ module.exports = {
 				'Content-Type': 'application/json;charset=UTF-8',
 				'Cookie': 'ssoid=' + cookie
 			}
-		}
+		};
 	},
 	lbr: function(marketIds) {
 		return {
@@ -125,5 +122,13 @@ module.exports = {
 				'Cookie': 'ssoid=' + cookie
 			}
 		};
+	},
+	keepAlive: {
+		url: 'https://identitysso.betfair.com/api/keepAlive',
+		method: 'GET',
+		headers: {
+			'X-Application': 'nzIFcwyWhrlwYMrh',
+			'Accept': 'application/json, text/plain'
+		}
 	}
 };

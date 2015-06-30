@@ -5,12 +5,12 @@ var extend = require('util')._extend;
 
 var wallet = function(walletData) {
 	return parseFloat(walletData[0].details.amount).toFixed(2);
-}
+};
 
 var facet = function(facetData) {
 	var results = JSON.parse(facetData).results;
 
-	var marketsId = new Array();
+	var marketsId = [];
 
 	for (var i = 0; i < results.length; i++) {
 		marketsId.push(results[i].marketId);
@@ -23,34 +23,65 @@ var lbrParser = function(lbrData) {
 };
 
 var toObject = function(lbr, ero, facet) {
-	var aux = {};
 	var markets = {};
-	aux.ero = {};
-	aux.lbr = {};
-	aux.facet = {};
 
 	_.each(ero.eventTypes, function(eventType) {
 		eventType.eventNodes.forEach(function(eventNode) {
-			eventNode.marketNodes.forEach(function(marketNode){
-				aux.ero[marketNode.marketId] = marketNode;
+			eventNode.marketNodes.forEach(function(marketNode) {
+				var m = Object.create(marketNode);
 
-				markets[marketNode.marketId] = {};
-			})
-		})
+				var aux = {};
+				aux.marketId = m.marketId;
+				aux.totalMatched = m.state.totalMatched;
+				aux.totalAvailable = m.state.totalAvailable;
+				aux.runners = minimizeRunners(m.runners);
+
+				markets[marketNode.marketId] = aux;
+			});
+		});
 	});
 
 	lbr.forEach(function(matched) {
-		aux.lbr[matched.marketId] = matched;
+		var x = Object.create(matched);
+
+		var market = markets[x.marketId];
+		_.each(x.selections, function(selection) {
+			delete selection.orders;
+		});
+		market.selections = x.selections;
 	});
 
-	aux.facet = facet.attachments.liteMarkets;
-
 	_.each(Object.keys(markets), function(marketId) {
-		markets[marketId] = extend(aux.lbr[marketId], aux.ero[marketId], aux.facet[marketId]);
-		markets[marketId] = extend(markets[marketId], aux.facet[marketId]);
+		var newFacet = Object.create(facet.attachments.liteMarkets[marketId]);
+
+		var aux = {};
+		aux.eventTypeId = newFacet.eventTypeId;
+		aux.marketTime = newFacet.marketTime;
+		aux.marketType = newFacet.marketType;
+		aux.totalMatched = newFacet.totalMatched;
+		aux.totalAvailable = newFacet.totalAvailable;
+
+		var market = markets[marketId];
+		markets[marketId] = extend(market, aux);
 	});
 
 	return markets;
+};
+
+function minimizeRunners(runners) {
+	_.each(runners, function(runner) {
+		try {
+			delete runner.state;
+			delete runner.handicap;
+			if (runner.exchange.availableToBack.length > 1) {
+				runner.exchange.availableToBack.splice(1, 2);
+			}
+			if (runner.exchange.availableToLay.length > 1) {
+				runner.exchange.availableToLay.splice(1, 2);
+			}
+		} catch(err) {}
+	});
+	return runners;
 }
 
 var extractRunner = function(runner) {	
@@ -61,7 +92,7 @@ var extractRunner = function(runner) {
 	selection.side = 'BACK';
 
 	return selection;
-}
+};
 
 module.exports = {
 	extractRunner: extractRunner,
@@ -69,4 +100,4 @@ module.exports = {
 	facet: facet,
 	lbr: lbrParser,
 	toObject: toObject
-}
+};

@@ -9,7 +9,14 @@ var marketRules = require('./MarketRules.js');
 var bettingService = require('./BettingService.js');
 var db = require('./DataBase.js');
 
-var availability = function(values) {
+var saveDB = function(markets) {
+	var x = db.save(markets);
+};
+
+var betNow = function(values) {
+	if (!values) {
+		return;
+	}
 
 	var lbrData = JSON.parse(values[0]);
 	var eroData = JSON.parse(values[1]);
@@ -19,29 +26,41 @@ var availability = function(values) {
 	var wallet = dataUtil.wallet(walletData);
 
 	var markets = dataUtil.toObject(lbrData, eroData, facetData);
-
+console.log(markets);
+// console.log(JSON.stringify(markets));
+// console.log('--------');
+// console.log("");
 	var marketsToBet = marketRules.marketsAvailable(markets);
 // console.log(JSON.stringify(marketsToBet));
+	var selections = bettingService.place(marketsToBet, wallet);
 
-	var selections = bettingService.place(marketsToBet, wallet).then(function(selections) {
-		// var x = db.save(selections);
-	});
+	return selections;
 };
 
-new cron('0,30 * * * * *', function() {
-	console.log();
-    request(requestHelper.facet).then(function(response) {
-		var facetIds = dataUtil.facet(response);
-		var marketsId = facetIds.join(',');
+var getEroLbrWallet = function(response) {
+	var facetIds = dataUtil.facet(response);
+	var marketsId = facetIds.join(',');
 
-		if (marketsId.length === 0) {
-			return;
-		}
+	if (marketsId.length === 0) {
+		console.log('There are no InPlay events now.');
+		return;
+	}
 
-		var lbrRequest = request(requestHelper.lbr(marketsId));
-		var eroRequest = request(requestHelper.ero(marketsId));
-		var walletRequest = request(requestHelper.wallet);
+	var lbrRequest = request(requestHelper.lbr(marketsId));
+	var eroRequest = request(requestHelper.ero(marketsId));
+	var walletRequest = request(requestHelper.wallet);
 
-		when.join(lbrRequest, eroRequest, walletRequest, when(response)).then(availability);
-	});
-}, null, true, "America/Los_Angeles");
+	return when.join(lbrRequest, eroRequest, walletRequest, when(response));
+};
+
+var getFacetData = function() {
+	return request(requestHelper.facet);
+};
+
+// new cron('0,10,20,30,40,50 * * * * *', function() {
+    getFacetData()
+	    .then(getEroLbrWallet)
+	    .then(betNow)
+	    .then(saveDB)
+	    .then(request(requestHelper.keepAlive));
+// }, null, true, "America/Los_Angeles");
